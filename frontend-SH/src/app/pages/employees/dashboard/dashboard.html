@@ -8,8 +8,8 @@
       <p>{{ stats.total }}</p>
     </div>
     <div class="card">
-      <h3>Rendement Moyen</h3>
-      <p>{{ stats.rendement_moyen | number:'1.1-2' }}%</p>
+      <h3>Taux_assiduite</h3>
+      <p>{{ stats.taux_assiduite | number:'1.1-2' }}%</p>
     </div>
     <div class="card">
       <h3>Heures Travaillées</h3>
@@ -39,7 +39,7 @@
         <th>ID</th>
         <th>Nom Complet</th>
         <th>Poste</th>
-        <th>Rendement</th>
+        <th>taux_assiduite</th>
         <th>Heures</th>
         <th>Production</th>
         <th>Actions</th>
@@ -51,7 +51,7 @@
           <td>{{ e.id }}</td>
           <td>{{ e.username }}</td>
           <td>{{ e.poste }}</td>
-          <td>{{ e.rendement_moyen }}%</td>
+          <td>{{ e.taux_assiduite }}%</td>
           <td>{{ e.heures_travaillees }}</td>
           <td>{{ e.production_totale }}</td>
           <td>
@@ -75,8 +75,8 @@
       <input [(ngModel)]="form.poste" name="poste" id="poste"
              placeholder="Ex: Technicien, Chef d'équipe..." />
 
-      <label for="rendement">Rendement moyen (%)</label>
-      <input [(ngModel)]="form.rendement_moyen" name="rendement" id="rendement"
+      <label for="rendement">Taux_assiduite (%)</label>
+      <input [(ngModel)]="form.taux_assiduite" name="taux_assiduite" id="taux_assiduite"
              type="number" placeholder="Ex: 85" />
 
       <label for="heures">Heures travaillées</label>

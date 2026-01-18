@@ -3,70 +3,76 @@
 
   <!-- Tableau des rendements par production -->
   <h3>Par Production</h3>
-  <table class="rendement-table">
-    <thead>
-      <tr>
-        <th>Production ID</th>
-        <th>Période</th>
-        <th>Employé</th>
-        <th>Machine</th>
-        <th>Taux rendement (pièces/heure)</th>
-        <th>Taux qualité (%)</th>
-        <th>Rendement global</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let r of rendements">
-        <td>{{ r.productionId }}</td>
-        <td>{{ r.date }}</td>
-        <td>{{ r.employe || '—' }}</td>
-        <td>{{ r.machine || '—' }}</td>
-        <td>{{ r.tauxRendement | number:'1.2-2' }}</td>
-        <td>{{ r.tauxQualite | number:'1.2-2' }} %</td>
-        <td>{{ r.rendementGlobal | number:'1.2-2' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-card">
+    <table class="rendement-table">
+      <thead>
+        <tr>
+          <th>Production ID</th>
+          <th>Période</th>
+          <th>Employé</th>
+          <th>Machine</th>
+          <th>Taux rendement (pièces/heure)</th>
+          <th>Taux qualité (%)</th>
+          <th>Rendement global</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rendements">
+          <td>{{ r.productionId }}</td>
+          <td>{{ r.date }}</td>
+          <td>{{ r.employe || '—' }}</td>
+          <td>{{ r.machine || '—' }}</td>
+          <td>{{ r.tauxRendement | number:'1.2-2' }}</td>
+          <td>{{ r.tauxQualite | number:'1.2-2' }} %</td>
+          <td>{{ r.rendementGlobal | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Tableau synthèse par employé -->
   <h3>Par Employé</h3>
-  <table class="rendement-table">
-    <thead>
-      <tr>
-        <th>Employé</th>
-        <th>Moyenne Rendement</th>
-        <th>Moyenne Qualité</th>
-        <th>Moyenne Globale</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let e of syntheseEmployes">
-        <td>{{ e.nom }}</td>
-        <td>{{ e.moyenneRendement | number:'1.2-2' }}</td>
-        <td>{{ e.moyenneQualite | number:'1.2-2' }} %</td>
-        <td>{{ e.moyenneGlobale | number:'1.2-2' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-card">
+    <table class="rendement-table">
+      <thead>
+        <tr>
+          <th>Employé</th>
+          <th>Moyenne Rendement</th>
+          <th>Moyenne Qualité</th>
+          <th>Moyenne Globale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of syntheseEmployes">
+          <td>{{ e.nom }}</td>
+          <td>{{ e.moyenneRendement | number:'1.2-2' }}</td>
+          <td>{{ e.moyenneQualite | number:'1.2-2' }} %</td>
+          <td>{{ e.moyenneGlobale | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- Tableau synthèse par machine -->
   <h3>Par Machine</h3>
-  <table class="rendement-table">
-    <thead>
-      <tr>
-        <th>Machine</th>
-        <th>Moyenne Rendement</th>
-        <th>Moyenne Qualité</th>
-        <th>Moyenne Globale</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let m of syntheseMachines">
-        <td>{{ m.nom }}</td>
-        <td>{{ m.moyenneRendement | number:'1.2-2' }}</td>
-        <td>{{ m.moyenneQualite | number:'1.2-2' }} %</td>
-        <td>{{ m.moyenneGlobale | number:'1.2-2' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-card">
+    <table class="rendement-table">
+      <thead>
+        <tr>
+          <th>Machine</th>
+          <th>Moyenne Rendement</th>
+          <th>Moyenne Qualité</th>
+          <th>Moyenne Globale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of syntheseMachines">
+          <td>{{ m.nom }}</td>
+          <td>{{ m.moyenneRendement | number:'1.2-2' }}</td>
+          <td>{{ m.moyenneQualite | number:'1.2-2' }} %</td>
+          <td>{{ m.moyenneGlobale | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

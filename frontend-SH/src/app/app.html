@@ -1,6 +1,21 @@
-<div class="layout">
+<div class="layout" [ngClass]="currentTheme">
   <!-- ✅ Navbar en haut -->
-  <header class="navbar">Dashboard - Navbar en haut</header>
+  <header class="navbar">
+    <div class="navbar-logo">⚡ SH Electronics</div>
+    <nav class="navbar-links">
+      <a href="#">Accueil</a>
+      <a href="#">Profil</a>
+      <a href="#">Paramètres</a>
+    </nav>
+
+    <!-- ✅ Sélecteur de thème -->
+    <select [(ngModel)]="currentTheme">
+      <option value="theme-baby">Baby Blue</option>
+      <option value="theme-pastel">Pastel Blue</option>
+      <option value="theme-deep">Bleu Soutenu</option>
+      <option value="theme-dark">Dark Mode</option>
+    </select>
+  </header>
 
   <!-- ✅ Sidebar à gauche -->
   <aside class="sidebar">
@@ -18,5 +33,3 @@
     <router-outlet></router-outlet>
   </main>
 </div>
-
-

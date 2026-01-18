@@ -6,15 +6,15 @@ export interface Employee {
   id?: number; 
   username: string; 
   poste: string; 
-  rendement_moyen: number;   // objectif en unités/heure
+  taux_assiduite: number;   // objectif en unités/heure
   heures_travaillees: number; 
   production_totale: number; 
-  rendementReel?: number;    // rendement réel calculé
+ 
 } 
 
 export interface EmployeeStats { 
   total: number; 
-  rendement_moyen: number; 
+  taux_assiduite: number; 
   heures_travaillees: number; 
   production_totale: number; 
 }

@@ -16,10 +16,10 @@ export class DashboardEmployesPage {
   // 🔹 Données
   employees: Employee[] = [];
   filtered: Employee[] = [];
-  stats: EmployeeStats = { total: 0, rendement_moyen: 0, heures_travaillees: 0, production_totale: 0 };
+  stats: EmployeeStats = { total: 0, taux_assiduite: 0, heures_travaillees: 0, production_totale: 0 };
 
   // 🔹 Formulaire
-  form: Employee = { username: '', poste: '', rendement_moyen: 0, heures_travaillees: 0, production_totale: 0 };
+  form: Employee = { username: '', poste: '', taux_assiduite: 0, heures_travaillees: 0, production_totale: 0 };
   selected: Employee | null = null;
 
   // 🔹 Filtres
@@ -65,13 +65,13 @@ export class DashboardEmployesPage {
         this.loadEmployees();
         this.loadStats();
         this.selected = null;
-        this.form = { username: '', poste: '', rendement_moyen: 0, heures_travaillees: 0, production_totale: 0 };
+        this.form = { username: '', poste: '', taux_assiduite: 0, heures_travaillees: 0, production_totale: 0 };
       });
     } else {
       this.service.create(this.form).subscribe(() => {
         this.loadEmployees();
         this.loadStats();
-        this.form = { username: '', poste: '', rendement_moyen: 0, heures_travaillees: 0, production_totale: 0 };
+        this.form = { username: '', poste: '', taux_assiduite: 0, heures_travaillees: 0, production_totale: 0 };
       });
     }
   }
@@ -88,7 +88,7 @@ export class DashboardEmployesPage {
   showList() {
     this.filtered = this.employees;
     this.selected = null;
-    this.form = { username: '', poste: '', rendement_moyen: 0, heures_travaillees: 0, production_totale: 0 };
+    this.form = { username: '', poste: '', taux_assiduite: 0, heures_travaillees: 0, production_totale: 0 };
   }
 }
 
