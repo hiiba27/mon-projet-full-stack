@@ -1,0 +1,50 @@
+.layout {
+  display: grid;
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: 60px 1fr;
+  height: 100vh;
+}
+
+.navbar {
+  grid-area: navbar;
+  background: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-weight: bold;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #ecf0f1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: bold;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: #34495e;
+  color: white;
+}
+
+.content {
+  grid-area: content;
+  padding: 20px;
+  background: #f9fafb;
+  overflow-y: auto;
+}

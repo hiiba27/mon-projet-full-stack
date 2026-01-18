@@ -1,0 +1,86 @@
+<div class="dashboard-container">
+  <h2>🏭 Gestion des Productions</h2>
+
+  <!-- 🔹 Filtres -->
+  <div class="filters">
+    <input [(ngModel)]="search" (input)="filter()" placeholder="🔍 Rechercher une production..." />
+    <button class="btn-primary" (click)="resetForm()">➕ Nouvelle production</button>
+    <button class="btn-secondary" (click)="showList()">📋 Afficher la liste</button>
+  </div>
+
+  <!-- 🔹 Tableau -->
+  <table class="production-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Quantité produite</th>
+        <th>Temps de travail</th>
+        <th>Défauts</th>
+        <th>Employé</th>
+        <th>Machine</th>
+        <th>Commande</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of filtered; track p.id) {
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.date | date }}</td>
+          <td>{{ p.quantite_produite }}</td>
+          <td>{{ p.temps_travail }}</td>
+          <td>{{ p.defaults }}</td>
+          <td>{{ p.employe?.username || '—' }}</td>
+          <td>{{ p.machine?.nom || '—' }}</td>
+          <td>{{ p.commande?.id || '—' }}</td>
+          <td>
+            <button class="btn-edit" (click)="edit(p)">✏️ Modifier</button>
+            <button class="btn-delete" (click)="delete(p.id!)">🗑️ Supprimer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- 🔹 Formulaire -->
+  <div class="form-container">
+    <h3>@if (selected) { Modifier } @else { Ajouter } une production</h3>
+    <form (ngSubmit)="save()">
+      <label for="date">Date</label>
+      <input [(ngModel)]="form.date" name="date" id="date" type="date" />
+
+      <label for="quantite">Quantité produite</label>
+      <input [(ngModel)]="form.quantite_produite" name="quantite_produite" id="quantite" type="number" />
+
+      <label for="temps">Temps de travail (heures)</label>
+      <input [(ngModel)]="form.temps_travail" name="temps_travail" id="temps" type="number" step="0.1" />
+
+      <label for="defaults">Défauts</label>
+      <input [(ngModel)]="form.defaults" name="defaults" id="defaults" type="number" />
+
+      <label for="employe">Employé</label>
+      <div class="custom-select">
+        <select [(ngModel)]="form.employe" name="employe" id="employe">
+          <option *ngFor="let e of employees" [ngValue]="e">{{ e.username }}</option>
+        </select>
+      </div>
+
+      <label for="machine">Machine</label>
+      <div class="custom-select">
+        <select [(ngModel)]="form.machine" name="machine" id="machine">
+          <option *ngFor="let m of machines" [ngValue]="m">{{ m.nom }}</option>
+        </select>
+      </div>
+
+      <label for="commande">Commande</label>
+      <div class="custom-select">
+        <select [(ngModel)]="form.commande" name="commande" id="commande">
+          <option *ngFor="let c of commandes" [ngValue]="c">Commande #{{ c.id }}</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary">💾 Enregistrer</button>
+    </form>
+  </div>
+</div>

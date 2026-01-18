@@ -1,0 +1,87 @@
+<div class="dashboard-container">
+  <h2>⚙️ Gestion des Machines</h2>
+
+  <!-- 🔹 Statistique meilleure machine -->
+  <div class="stats" *ngIf="bestMachine">
+    <div class="card">
+      <h3>🏆 Meilleure machine cette semaine</h3>
+      <p>{{ bestMachine.nom }} (Production: {{ bestMachine.production_totale }})</p>
+    </div>
+  </div>
+
+  <!-- 🔹 Statistique circulaire -->
+  <div class="chart-container">
+    <h3>📊 Répartition des machines par état</h3>
+    <canvas baseChart
+            [data]="pieData"
+            [options]="pieOptions"
+            [type]="pieType">
+    </canvas>
+  </div>
+
+  <!-- 🔹 Filtres -->
+  <div class="filters">
+    <input [(ngModel)]="search" (input)="filter()" placeholder="🔍 Rechercher une machine..." />
+    <button class="btn-primary" (click)="resetForm()">➕ Nouvelle machine</button>
+    <button class="btn-secondary" (click)="filtered = machines">📋 Afficher la liste</button>
+  </div>
+
+  <!-- 🔹 Tableau -->
+  <table class="machine-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>État</th>
+        <th>Taux Utilisation (%)</th>
+        <th>Heures</th>
+        <th>Production</th>
+        <th>Dernière Maintenance</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (m of filtered; track m.id) {
+        <tr>
+          <td>{{ m.id }}</td>
+          <td>{{ m.nom }}</td>
+          <td>{{ m.etat }}</td>
+          <td>{{ m.taux_utilisation }}</td>
+          <td>{{ m.heures_fonctionnement }}</td>
+          <td>{{ m.production_totale }}</td>
+          <td>{{ m.derniere_maintenance }}</td>
+          <td>
+            <button class="btn-edit" (click)="edit(m)">✏️ Modifier</button>
+            <button class="btn-delete" (click)="delete(m.id!)">🗑️ Supprimer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- 🔹 Formulaire -->
+  <div class="form-container">
+    <h3>@if (selected) { Modifier } @else { Ajouter } une machine</h3>
+    <form (ngSubmit)="save()">
+      <label for="nom">Nom de la machine</label>
+      <input [(ngModel)]="form.nom" name="nom" id="nom" placeholder="Ex: Presse hydraulique" />
+
+      <label for="etat">État</label>
+      <input [(ngModel)]="form.etat" name="etat" id="etat" placeholder="Ex: En marche, Arrêtée, Panne" />
+
+      <label for="taux">Taux d'utilisation (%)</label>
+      <input [(ngModel)]="form.taux_utilisation" name="taux" id="taux" type="number" placeholder="Ex: 75" />
+
+      <label for="heures">Heures de fonctionnement</label>
+      <input [(ngModel)]="form.heures_fonctionnement" name="heures" id="heures" type="number" placeholder="Ex: 120" />
+
+      <label for="production">Production totale</label>
+      <input [(ngModel)]="form.production_totale" name="production" id="production" type="number" placeholder="Ex: 2500" />
+
+      <label for="maintenance">Dernière maintenance</label>
+      <input [(ngModel)]="form.derniere_maintenance" name="maintenance" id="maintenance" type="date" />
+
+      <button type="submit" class="btn-primary">💾 Enregistrer</button>
+    </form>
+  </div>
+</div>

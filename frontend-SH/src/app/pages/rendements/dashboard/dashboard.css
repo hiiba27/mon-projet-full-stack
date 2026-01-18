@@ -1,0 +1,41 @@
+.dashboard-container {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  background: #f9fafb;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #34495e;
+}
+
+.rendement-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.rendement-table th, .rendement-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.rendement-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+.rendement-table tr:hover {
+  background: #f1f1f1;
+}
+
+

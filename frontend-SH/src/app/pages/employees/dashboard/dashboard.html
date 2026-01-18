@@ -1,0 +1,93 @@
+<div class="dashboard-container">
+  <h2>👩‍💼 Gestion des Employés</h2>
+
+  <!-- 🔹 Statistiques -->
+  <div class="stats">
+    <div class="card">
+      <h3>Total Employés</h3>
+      <p>{{ stats.total }}</p>
+    </div>
+    <div class="card">
+      <h3>Rendement Moyen</h3>
+      <p>{{ stats.rendement_moyen | number:'1.1-2' }}%</p>
+    </div>
+    <div class="card">
+      <h3>Heures Travaillées</h3>
+      <p>{{ stats.heures_travaillees }}h</p>
+    </div>
+    <div class="card">
+      <h3>Production Totale</h3>
+      <p>{{ stats.production_totale }}</p>
+    </div>
+  </div>
+
+  <!-- 🔹 Filtres -->
+  <div class="filters">
+    <input [(ngModel)]="search" (input)="filter()" placeholder="🔍 Rechercher par nom..." />
+    <select [(ngModel)]="posteFilter" (change)="filter()">
+      <option value="">Tous les postes</option>
+      <option value="Chef d'équipe">Chef d'équipe</option>
+      <option value="Technicien">Technicien</option>
+    </select>
+    <button class="btn-primary" (click)="showList()">📋 Afficher la liste</button>
+  </div>
+
+  <!-- 🔹 Tableau -->
+  <table class="employee-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom Complet</th>
+        <th>Poste</th>
+        <th>Rendement</th>
+        <th>Heures</th>
+        <th>Production</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (e of filtered; track e.id) {
+        <tr>
+          <td>{{ e.id }}</td>
+          <td>{{ e.username }}</td>
+          <td>{{ e.poste }}</td>
+          <td>{{ e.rendement_moyen }}%</td>
+          <td>{{ e.heures_travaillees }}</td>
+          <td>{{ e.production_totale }}</td>
+          <td>
+            <button class="btn-edit" (click)="edit(e)">✏️ Modifier</button>
+            <button class="btn-delete" (click)="delete(e.id!)">🗑️ Supprimer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- 🔹 Formulaire -->
+  <div class="form-container">
+    <h3>@if (selected) { Modifier } @else { Ajouter } un employé</h3>
+    <form (ngSubmit)="save()">
+      <label for="username">Nom complet</label>
+      <input [(ngModel)]="form.username" name="username" id="username"
+             placeholder="Ex: Mohamed Ali" />
+
+      <label for="poste">Poste</label>
+      <input [(ngModel)]="form.poste" name="poste" id="poste"
+             placeholder="Ex: Technicien, Chef d'équipe..." />
+
+      <label for="rendement">Rendement moyen (%)</label>
+      <input [(ngModel)]="form.rendement_moyen" name="rendement" id="rendement"
+             type="number" placeholder="Ex: 85" />
+
+      <label for="heures">Heures travaillées</label>
+      <input [(ngModel)]="form.heures_travaillees" name="heures" id="heures"
+             type="number" placeholder="Ex: 160" />
+
+      <label for="production">Production totale</label>
+      <input [(ngModel)]="form.production_totale" name="production" id="production"
+             type="number" placeholder="Ex: 2500" />
+
+      <button type="submit" class="btn-primary">💾 Enregistrer</button>
+    </form>
+  </div>
+</div>

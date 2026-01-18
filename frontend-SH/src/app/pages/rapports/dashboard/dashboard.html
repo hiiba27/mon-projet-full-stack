@@ -1,0 +1,88 @@
+<div class="rapport-container">
+  <h2>📑 Génération de Rapport</h2>
+
+  <form class="rapport-form">
+    <!-- Type de rapport -->
+    <div class="form-group">
+      <label for="typeRapport">Type de rapport</label>
+      <select id="typeRapport" [(ngModel)]="typeRapport" name="typeRapport">
+        <option value="">-- Choisir --</option>
+        <option value="global">Rendement global</option>
+        <option value="employe">Par employé</option>
+        <option value="machine">Par machine</option>
+        <option value="commande">Par commande</option>
+      </select>
+    </div>
+
+    <!-- Période -->
+    <div class="form-group">
+      <label>Période</label>
+      <input type="date" [(ngModel)]="dateDebut" name="dateDebut" />
+      <input type="date" [(ngModel)]="dateFin" name="dateFin" />
+    </div>
+
+    <!-- Menu déroulant employé -->
+    <div class="form-group" *ngIf="typeRapport === 'employe'">
+      <label for="employeId">Choisir un employé</label>
+      <select id="employeId" [(ngModel)]="employeId" name="employeId">
+        <option *ngFor="let e of employes" [value]="e.id">{{ e.username }}</option>
+      </select>
+    </div>
+
+    <!-- Menu déroulant machine -->
+    <div class="form-group" *ngIf="typeRapport === 'machine'">
+      <label for="machineId">Choisir une machine</label>
+      <select id="machineId" [(ngModel)]="machineId" name="machineId">
+        <option *ngFor="let m of machines" [value]="m.id">{{ m.nom }}</option>
+      </select>
+    </div>
+
+    <!-- Destinataires email -->
+    <div class="form-group">
+      <label for="destinataires">Destinataires email</label>
+      <input type="text" id="destinataires" [(ngModel)]="destinataires" name="destinataires"
+             placeholder="ex: user1@mail.com, user2@mail.com" />
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-actions">
+      <button type="button" (click)="genererRapport()">Générer</button>
+      <button type="button" (click)="exportPdf()">Exporter PDF</button>
+      <button type="button" (click)="envoyerRapport()">Envoyer Email</button>
+    </div>
+  </form>
+
+  <!-- ✅ Message de confirmation ou erreur -->
+  <div *ngIf="message" [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
+    {{ message }}
+  </div>
+
+  <!-- Résultats -->
+  <div *ngIf="rendements.length > 0" class="rapport-result">
+    <h3>Résultats du rapport</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID Production</th>
+          <th>Date</th>
+          <th>Employé</th>
+          <th>Machine</th>
+          <th>Taux Rendement</th>
+          <th>Taux Qualité</th>
+          <th>Rendement Global</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rendements">
+          <td>{{ r.productionId }}</td>
+          <td>{{ r.date }}</td>
+          <td>{{ r.employe }}</td>
+          <td>{{ r.machine }}</td>
+          <td>{{ r.tauxRendement | number:'1.0-2' }}</td>
+          <td>{{ r.tauxQualite | number:'1.0-2' }} %</td>
+          <td>{{ r.rendementGlobal | number:'1.0-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

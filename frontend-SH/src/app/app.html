@@ -1,0 +1,22 @@
+<div class="layout">
+  <!-- ✅ Navbar en haut -->
+  <header class="navbar">Dashboard - Navbar en haut</header>
+
+  <!-- ✅ Sidebar à gauche -->
+  <aside class="sidebar">
+    <a routerLink="/employees" routerLinkActive="active">👥 Employés</a>
+    <a routerLink="/machines" routerLinkActive="active">⚙️ Machines</a>
+    <a routerLink="/commandes" routerLinkActive="active">📦 Commandes</a>
+    <a routerLink="/produits" routerLinkActive="active">🛠️ Produits</a>
+    <a routerLink="/productions" routerLinkActive="active">🏭 Productions</a>
+    <a routerLink="/rapports" routerLinkActive="active">📑 Rapports</a>
+    <a routerLink="/rendements" routerLinkActive="active">📊 Rendements</a>
+  </aside>
+
+  <!-- ✅ Zone de contenu -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+

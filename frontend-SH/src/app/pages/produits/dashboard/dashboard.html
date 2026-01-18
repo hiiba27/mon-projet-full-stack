@@ -1,0 +1,55 @@
+<div class="dashboard-container">
+  <h2>📦 Gestion des Produits</h2>
+
+  <!-- 🔹 Filtres -->
+  <div class="filters">
+    <input [(ngModel)]="search" (input)="filter()" placeholder="🔍 Rechercher un produit..." />
+    <button class="btn-primary" (click)="resetForm()">➕ Nouveau produit</button>
+    <button class="btn-secondary" (click)="filtered = produits">📋 Afficher la liste</button>
+  </div>
+
+  <!-- 🔹 Tableau -->
+  <table class="produit-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Type</th>
+        <th>Temps Standard</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of filtered; track p.id) {
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.nom }}</td>
+          <td>{{ p.type }}</td>
+          <td>{{ p.temps_standard }}</td>
+          <td>
+            <button class="btn-edit" (click)="edit(p)">✏️ Modifier</button>
+            <button class="btn-delete" (click)="delete(p.id!)">🗑️ Supprimer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- 🔹 Formulaire -->
+  <div class="form-container">
+    <h3>@if (selected) { Modifier } @else { Ajouter } un produit</h3>
+    <form (ngSubmit)="save()">
+      <label for="nom">Nom</label>
+      <input [(ngModel)]="form.nom" name="nom" id="nom" placeholder="Nom du produit" />
+
+      <label for="type">Type</label>
+      <input [(ngModel)]="form.type" name="type" id="type" placeholder="Type du produit" />
+
+      <label for="temps">Temps standard</label>
+      <input [(ngModel)]="form.temps_standard" name="temps" id="temps" type="number" />
+
+      <button type="submit" class="btn-primary">💾 Enregistrer</button>
+    </form>
+  </div>
+</div>
+

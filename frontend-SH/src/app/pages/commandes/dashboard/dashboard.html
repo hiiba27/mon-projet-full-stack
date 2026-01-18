@@ -1,0 +1,58 @@
+<div class="dashboard-container">
+  <h2>📦 Gestion des Commandes</h2>
+
+  <div class="filters">
+    <input [(ngModel)]="search" (input)="filter()" placeholder="🔍 Rechercher une commande..." />
+    <button class="btn-primary" (click)="resetForm()">➕ Nouvelle commande</button>
+    <button class="btn-secondary" (click)="showList()">📋 Afficher la liste</button>
+  </div>
+
+  <table class="commande-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Client</th>
+        <th>Date</th>
+        <th>Quantité</th>
+        <th>Produit</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (c of filtered; track c.id) {
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.client }}</td>
+          <td>{{ c.date_commande | date }}</td>
+          <td>{{ c.quantite_commandee }}</td>
+          <td>{{ c.produit?.nom }}</td>
+          <td>
+            <button class="btn-edit" (click)="edit(c)">✏️ Modifier</button>
+            <button class="btn-delete" (click)="delete(c.id!)">🗑️ Supprimer</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="form-container">
+    <h3>@if (selected) { Modifier } @else { Ajouter } une commande</h3>
+    <form (ngSubmit)="save()">
+      <label>Client</label>
+      <input [(ngModel)]="form.client" name="client" />
+
+      <label>Date</label>
+      <input [(ngModel)]="form.date_commande" name="date" type="date" />
+
+      <label>Quantité</label>
+      <input [(ngModel)]="form.quantite_commandee" name="quantite" type="number" />
+
+      <label>Produit</label>
+      <select [(ngModel)]="form.produit" name="produit">
+        <option *ngFor="let p of produits" [ngValue]="p">{{ p.nom }}</option>
+      </select>
+
+      <button type="submit" class="btn-primary">💾 Enregistrer</button>
+    </form>
+  </div>
+</div>
