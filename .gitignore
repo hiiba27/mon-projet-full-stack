@@ -1,0 +1,28 @@
+# --- Angular ---
+frontend-SH/node_modules
+frontend-SH/dist
+
+# --- Spring Boot ---
+Projet_rendement/target
+Projet_rendement/.classpath
+Projet_rendement/.project
+Projet_rendement/.settings
+
+# --- Logs ---
+*.log
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# --- Build tools ---
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+ 
