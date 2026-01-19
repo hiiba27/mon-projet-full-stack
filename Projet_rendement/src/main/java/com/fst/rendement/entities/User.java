@@ -3,48 +3,46 @@ package com.fst.rendement.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "utilisateurs")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
+    @Column(nullable = false, unique = true) // ✅ username obligatoire et unique
     private String username;
+
+    @Column(nullable = false) // ✅ mot de passe obligatoire
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false) // ✅ rôle obligatoire
     private Role role;
 
-    // ======== Getters & Setters ========
-
-    public Integer getId() {
+    // Getters / Setters
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id){
-        this.id = id;
-    }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public Role getRole(){
+    public Role getRole() {
         return role;
     }
-    public void setRole(Role role){
+    public void setRole(Role role) {
         this.role = role;
     }
 }
-

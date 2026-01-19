@@ -38,7 +38,7 @@ public class MachineRestController {
             m.setHeures_fonctionnement(updated.getHeures_fonctionnement());
             m.setProduction_totale(updated.getProduction_totale());
             m.setDerniere_maintenance(updated.getDerniere_maintenance());
-            m.setLigne(updated.getLigne());
+          
             return machineRepository.save(m);
         }).orElseGet(() -> {
             updated.setId(id);

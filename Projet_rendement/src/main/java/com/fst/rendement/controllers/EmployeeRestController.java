@@ -39,7 +39,7 @@ public class EmployeeRestController {
         return employeeRepository.findById(id).map(e -> {
             e.setUsername(updated.getUsername());
             e.setPoste(updated.getPoste());
-            e.setRendement_moyen(updated.getRendement_moyen());
+            e.setTaux_assiduite(updated.getTaux_assiduite());
             return employeeRepository.save(e);
         }).orElseGet(() -> {
             updated.setId(id);
@@ -57,7 +57,7 @@ public class EmployeeRestController {
         List<Employee> employees = employeeRepository.findAll();
         int total = employees.size();
         double rendementMoyen = employees.stream()
-                .mapToDouble(Employee::getRendement_moyen)
+                .mapToDouble(Employee::getTaux_assiduite)
                 .average()
                 .orElse(0);
 
@@ -74,13 +74,13 @@ public class EmployeeRestController {
 
     static class StatsResponse {
         public int total;
-        public double rendement_moyen;
+        public double taux_assiduite;
         public int heures_travaillees;
         public int production_totale;
 
-        public StatsResponse(int total, double rendement_moyen, int heures_travaillees, int production_totale) {
+        public StatsResponse(int total, double taux_assiduite, int heures_travaillees, int production_totale) {
             this.total = total;
-            this.rendement_moyen = rendement_moyen;
+            this.taux_assiduite = taux_assiduite;
             this.heures_travaillees = heures_travaillees;
             this.production_totale = production_totale;
         }

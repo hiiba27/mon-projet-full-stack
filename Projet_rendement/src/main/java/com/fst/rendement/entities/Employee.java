@@ -10,10 +10,11 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+ // test modification pour Git
 
     private String username;
     private String poste;
-    private float rendement_moyen;
+    private Float taux_assiduite = 0f;
 
     private int heures_travaillees;   // 🔹 Nouveau champ
     private int production_totale;    // 🔹 Nouveau champ
@@ -28,8 +29,8 @@ public class Employee {
     public String getPoste() { return poste; }
     public void setPoste(String poste) { this.poste = poste; }
 
-    public float getRendement_moyen() { return rendement_moyen; }
-    public void setRendement_moyen(float rendement_moyen) { this.rendement_moyen = rendement_moyen; }
+    public float getTaux_assiduite() { return taux_assiduite; }
+    public void setTaux_assiduite(float taux_assiduite) { this.taux_assiduite = taux_assiduite; }
 
     public int getHeures_travaillees() { return heures_travaillees; }
     public void setHeures_travaillees(int heures_travaillees) { this.heures_travaillees = heures_travaillees; }

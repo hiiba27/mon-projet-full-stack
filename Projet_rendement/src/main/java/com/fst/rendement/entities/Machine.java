@@ -19,8 +19,7 @@ public class Machine {
     private int production_totale;
     private LocalDate derniere_maintenance;
 
-    @ManyToOne
-    private LigneProduction ligne;
+  
 
     // --- Getters / Setters ---
     public Integer getId() { return id; }
@@ -44,7 +43,6 @@ public class Machine {
     public LocalDate getDerniere_maintenance() { return derniere_maintenance; }
     public void setDerniere_maintenance(LocalDate derniere_maintenance) { this.derniere_maintenance = derniere_maintenance; }
 
-    public LigneProduction getLigne() { return ligne; }
-    public void setLigne(LigneProduction ligne) { this.ligne = ligne; }
+ 
 }
 
