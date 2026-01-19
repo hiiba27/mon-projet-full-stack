@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../core/auth.service';
+ // 👈 importe ton AuthService
 
 @Component({
   selector: 'app-dashboard-rendement',
@@ -11,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardRendementPage {
   private http = inject(HttpClient);
+  private auth = inject(AuthService); // 👈 injection du service d’authentification
 
   rendements: any[] = [];
   syntheseEmployes: any[] = [];
@@ -21,17 +24,27 @@ export class DashboardRendementPage {
   }
 
   loadData() {
+    const headers = this.auth.getAuthHeaders(); // 👈 récupère les headers avec Basic Auth
+
     // 🔹 Rendements par production
-    this.http.get<any[]>('http://localhost:8080/api/rendements')
-      .subscribe(data => this.rendements = data);
+    this.http.get<any[]>('http://localhost:8080/api/rendements', { headers })
+      .subscribe({
+        next: data => this.rendements = data,
+        error: err => console.error('Erreur rendements:', err)
+      });
 
     // 🔹 Synthèse par employé
-    this.http.get<any[]>('http://localhost:8080/api/rendements/synthese/employes')
-      .subscribe(data => this.syntheseEmployes = data);
+    this.http.get<any[]>('http://localhost:8080/api/rendements/synthese/employes', { headers })
+      .subscribe({
+        next: data => this.syntheseEmployes = data,
+        error: err => console.error('Erreur synthèse employés:', err)
+      });
 
     // 🔹 Synthèse par machine
-    this.http.get<any[]>('http://localhost:8080/api/rendements/synthese/machines')
-      .subscribe(data => this.syntheseMachines = data);
+    this.http.get<any[]>('http://localhost:8080/api/rendements/synthese/machines', { headers })
+      .subscribe({
+        next: data => this.syntheseMachines = data,
+        error: err => console.error('Erreur synthèse machines:', err)
+      });
   }
 }
-

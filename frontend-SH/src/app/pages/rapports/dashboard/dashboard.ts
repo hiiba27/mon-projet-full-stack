@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../core/auth.service'; // 👈 chemin corrigé vers ton AuthService
 
 @Component({
   selector: 'app-rapport-generation',
@@ -12,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardRapportPage implements OnInit {
   private http = inject(HttpClient);
+  private auth = inject(AuthService); // 👈 injection du service d’authentification
 
   // Champs du formulaire
   typeRapport: string = '';
@@ -33,17 +35,26 @@ export class DashboardRapportPage implements OnInit {
   messageType: 'success' | 'error' | '' = '';
 
   ngOnInit() {
+    const headers = this.auth.getAuthHeaders();
+
     // Charger la liste des employés
-    this.http.get<any[]>('http://localhost:8080/api/employees')
-      .subscribe(data => this.employes = data);
+    this.http.get<any[]>('http://localhost:8080/api/employees', { headers })
+      .subscribe({
+        next: data => this.employes = data,
+        error: err => console.error('Erreur chargement employés:', err)
+      });
 
     // Charger la liste des machines
-    this.http.get<any[]>('http://localhost:8080/api/machines')
-      .subscribe(data => this.machines = data);
+    this.http.get<any[]>('http://localhost:8080/api/machines', { headers })
+      .subscribe({
+        next: data => this.machines = data,
+        error: err => console.error('Erreur chargement machines:', err)
+      });
   }
 
   // Générer rapport
   genererRapport() {
+    const headers = this.auth.getAuthHeaders();
     const params = {
       typeRapport: this.typeRapport || 'global',
       dateDebut: this.dateDebut,
@@ -52,7 +63,7 @@ export class DashboardRapportPage implements OnInit {
       machineId: this.machineId || null
     };
 
-    this.http.post<any[]>('http://localhost:8080/api/rapports/generer', params)
+    this.http.post<any[]>('http://localhost:8080/api/rapports/generer', params, { headers })
       .subscribe({
         next: (result) => {
           this.rendements = result;
@@ -68,6 +79,7 @@ export class DashboardRapportPage implements OnInit {
 
   // Exporter PDF
   exportPdf() {
+    const headers = this.auth.getAuthHeaders();
     const params = {
       typeRapport: this.typeRapport,
       dateDebut: this.dateDebut,
@@ -76,7 +88,7 @@ export class DashboardRapportPage implements OnInit {
       machineId: this.machineId || null
     };
 
-    this.http.post('http://localhost:8080/api/rapports/export/pdf', params, { responseType: 'blob' })
+    this.http.post('http://localhost:8080/api/rapports/export/pdf', params, { headers, responseType: 'blob' })
       .subscribe({
         next: (blob: Blob) => {
           const url = window.URL.createObjectURL(blob);
@@ -98,6 +110,7 @@ export class DashboardRapportPage implements OnInit {
 
   // Envoyer rapport par email
   envoyerRapport() {
+    const headers = this.auth.getAuthHeaders();
     const emails = this.destinataires.split(',').map(e => e.trim()).filter(e => e.length > 0);
 
     const params = {
@@ -109,7 +122,7 @@ export class DashboardRapportPage implements OnInit {
       destinataires: emails
     };
 
-    this.http.post('http://localhost:8080/api/rapports/envoyer', params, { responseType: 'text' })
+    this.http.post('http://localhost:8080/api/rapports/envoyer', params, { headers, responseType: 'text' })
       .subscribe({
         next: (res) => {
           this.message = `✅ ${res}`;

@@ -1,0 +1,28 @@
+<div class="layout">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <h2>⚡ SH Electronics</h2>
+    <a routerLink="/login">Déconnexion</a>
+  </header>
+
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a routerLink="/app/employees" routerLinkActive="active">👥 Employés</a>
+      <a routerLink="/app/machines" routerLinkActive="active">⚙️ Machines</a>
+      <a routerLink="/app/commandes" routerLinkActive="active">📦 Commandes</a>
+      <a routerLink="/app/produits" routerLinkActive="active">🛠️ Produits</a>
+      <a routerLink="/app/productions" routerLinkActive="active">🏭 Productions</a>
+      <a routerLink="/app/rapports" routerLinkActive="active">📑 Rapports</a>
+      <a routerLink="/app/rendements" routerLinkActive="active">📊 Rendements</a>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

@@ -20,26 +20,26 @@ export class MachineService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Machine[]> {
-    return this.http.get<Machine[]>(this.apiUrl);
+    return this.http.get<Machine[]>(this.apiUrl, { withCredentials: true });
   }
 
   getBestMachine(): Observable<Machine> {
-    return this.http.get<Machine>(`${this.apiUrl}/best`);
+    return this.http.get<Machine>(`${this.apiUrl}/best`, { withCredentials: true });
   }
 
   getEtatStats(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/stats/etat`);
+    return this.http.get<any>(`${this.apiUrl}/stats/etat`, { withCredentials: true });
   }
 
   create(machine: Machine): Observable<Machine> {
-    return this.http.post<Machine>(this.apiUrl, machine);
+    return this.http.post<Machine>(this.apiUrl, machine, { withCredentials: true });
   }
 
   update(id: number, machine: Machine): Observable<Machine> {
-    return this.http.put<Machine>(`${this.apiUrl}/${id}`, machine);
+    return this.http.put<Machine>(`${this.apiUrl}/${id}`, machine, { withCredentials: true });
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }

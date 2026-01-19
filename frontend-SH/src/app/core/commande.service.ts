@@ -18,19 +18,18 @@ export class CommandeService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Commande[]> {
-    return this.http.get<Commande[]>(this.apiUrl);
+    return this.http.get<Commande[]>(this.apiUrl, { withCredentials: true });
   }
 
   create(c: Commande): Observable<Commande> {
-    return this.http.post<Commande>(this.apiUrl, c);
+    return this.http.post<Commande>(this.apiUrl, c, { withCredentials: true });
   }
 
   update(id: number, c: Commande): Observable<Commande> {
-    return this.http.put<Commande>(`${this.apiUrl}/${id}`, c);
+    return this.http.put<Commande>(`${this.apiUrl}/${id}`, c, { withCredentials: true });
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }
-

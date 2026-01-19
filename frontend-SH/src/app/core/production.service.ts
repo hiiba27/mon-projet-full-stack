@@ -20,19 +20,18 @@ export class ProductionService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Production[]> {
-    return this.http.get<Production[]>(this.apiUrl);
+    return this.http.get<Production[]>(this.apiUrl, { withCredentials: true });
   }
 
   create(p: Production): Observable<Production> {
-    return this.http.post<Production>(this.apiUrl, p);
+    return this.http.post<Production>(this.apiUrl, p, { withCredentials: true });
   }
 
   update(id: number, p: Production): Observable<Production> {
-    return this.http.put<Production>(`${this.apiUrl}/${id}`, p);
+    return this.http.put<Production>(`${this.apiUrl}/${id}`, p, { withCredentials: true });
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }
-

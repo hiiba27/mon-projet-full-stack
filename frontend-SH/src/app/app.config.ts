@@ -1,6 +1,12 @@
-import { provideRouter, Routes , withRouterConfig } from '@angular/router';
+import { provideRouter, Routes } from '@angular/router';
 
-// 🔹 Importation des composants standalone
+// Layout
+import { DashboardLayoutComponent } from './pages/layout/dashboard/dashboard';
+
+// Login
+import { DashboardLoginPage } from './pages/login/dashboard/dashboard';
+
+// Pages métiers
 import { DashboardEmployesPage } from './pages/employees/dashboard/dashboard';
 import { DashboardMachinePage } from './pages/machines/dashboard/dashboard';
 import { DashboardCommandePage } from './pages/commandes/dashboard/dashboard';
@@ -9,26 +15,31 @@ import { DashboardProduitPage } from './pages/produits/dashboard/dashboard';
 import { DashboardRendementPage } from './pages/rendements/dashboard/dashboard';
 import { DashboardRapportPage } from './pages/rapports/dashboard/dashboard';
 
-// 🔹 Définition des routes
 const routes: Routes = [
-  { path: '', redirectTo: 'employees', pathMatch: 'full' },
 
-  { path: 'employees', component: DashboardEmployesPage },
-  { path: 'machines', component: DashboardMachinePage },
-  { path: 'commandes', component: DashboardCommandePage },
-  { path: 'productions', component: DashboardProductionPage },
-  { path: 'produits', component: DashboardProduitPage },
-  { path: 'rendements', component: DashboardRendementPage },
-  { path: 'rapports', component: DashboardRapportPage },
+  // LOGIN
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: DashboardLoginPage },
 
-  // 🔹 Route fallback si aucune correspondance
-  { path: '**', redirectTo: 'employees' }
+  // LAYOUT
+  {
+    path: 'app',
+    component: DashboardLayoutComponent,
+    children: [
+      { path: 'employees', component: DashboardEmployesPage },
+      { path: 'machines', component: DashboardMachinePage },
+      { path: 'commandes', component: DashboardCommandePage },
+      { path: 'produits', component: DashboardProduitPage },
+      { path: 'productions', component: DashboardProductionPage },
+      { path: 'rapports', component: DashboardRapportPage },
+      { path: 'rendements', component: DashboardRendementPage },
+      { path: '', redirectTo: 'employees', pathMatch: 'full' }
+    ]
+  },
+
+  { path: '**', redirectTo: 'login' }
 ];
-
-// 🔹 Fourniture du router à l'application
-
 
 export const appConfig = [
-  provideRouter(routes, withRouterConfig({ onSameUrlNavigation: 'reload' }))
+  provideRouter(routes)
 ];
-
